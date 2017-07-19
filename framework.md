@@ -16,5 +16,13 @@ https://github.com/sequelize/sequelize
 
 https://github.com/node-modules/mini-logger
 
+5. 数据库迁移方案
+
+https://github.com/db-migrate/node-db-migrate
+
+6. 伪造跨站请求保护 CSRF
+
+https://github.com/koajs/csrf
+
 
 
