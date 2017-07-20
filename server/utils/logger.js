@@ -16,7 +16,9 @@ const logger = Logger({
 })
 
 
-const formatLog = (type,msg) => type + '|' + process.pid + '|' + dataTime.format(Date.now()) +'|'+ msg;
+const formatLog = (type,msg) =>{
+    return type + '|' + process.pid + '|' + dataTime.format(Date.now()) +'|'+ (msg instanceof Error ? msg.stack : msg);
+}
 
 
 module.exports = {

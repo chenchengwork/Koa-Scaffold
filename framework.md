@@ -25,4 +25,13 @@ https://github.com/db-migrate/node-db-migrate
 https://github.com/koajs/csrf
 
 
+7. 国际化
+
+8. 认证用户是否登录
+
+9. restClient curl
+
+
+
+
 
