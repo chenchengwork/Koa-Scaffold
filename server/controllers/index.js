@@ -2,7 +2,7 @@ const path = require('path');
 
 const restServer = require('../utils/restServer');
 const restClient = require('../utils/restClient');
-const upload = require('../utils/upload');
+const uploadUtil = require('../utils/uploadUtil');
 
 /**
  * 响应view模板的controller
@@ -35,25 +35,18 @@ exports.homeAPI = async (ctx) => {
  * @returns {Promise.<void>}
  */
 exports.homeDisposeUpload = async (ctx) => {
-    // console.log("===============================================")
-    // console.log(ctx.request)
-    // console.log("===============================================")
-
-
-
-    // 上传文件请求处理
-    let result = { success: false }
-    let serverFilePath = path.join( __dirname, '/../static/upload' )
 
     // 上传文件事件
-    result = await upload.uploadPicture( ctx, {
-        fileType: 'album',
-        path: serverFilePath
-    })
-    // console.log(result)
-    // ctx.body = result
+    let result = await uploadUtil.do( ctx, {
+        filePath: path.join( __dirname, '/../static/upload/' ),
+        allowSuffix:['jpg'],
+    });
 
-    restServer.success(ctx,'dispose upload');
+    if(result.success){
+        restServer.success(ctx,null,'文件上传成功');
+    }else{
+        restServer.error(ctx,null,'文件上传失败')
+    }
 }
 
 
