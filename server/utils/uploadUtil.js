@@ -26,20 +26,20 @@ const getSuffixName = (fileName) => {
 class uploadUtil {
 
     constructor(){
-        this.fileName = "";
+        this.fileNames = [];
     }
 
 
     /**
      * 获取文件名
-     * @returns {string}
+     * @returns {Array | string}
      */
     getFileName(){
-        return this.fileName;
+        return this.fileNames.length == 1 ? this.fileNames[0] : this.fileNames;
     }
 
     /**
-     * 执行文件上传
+     * 执行文件上传,支持多文件上传
      * @param ctx
      * @param {object} options
      * {
@@ -51,10 +51,7 @@ class uploadUtil {
      */
     do(ctx, options) {
         const self = this;
-
         let req = ctx.req;
-        let busboy = new Busboy({headers: req.headers});
-        let {filePath, fileName, allowSuffix} = options;
 
         return new Promise((resolve, reject) => {
             let result = {
@@ -63,9 +60,12 @@ class uploadUtil {
                 data: null
             }
 
+            let busboy = new Busboy({headers: req.headers});
+
             busboy.on('file', function (fieldName, file, filename, encoding, mimetype) {
                 // console.log('File-file [' + fieldName + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype)
 
+                let {filePath, fileName, allowSuffix} = options;
                 const fileSuffix = getSuffixName(filename);
 
                 //检查文件类型
@@ -99,15 +99,18 @@ class uploadUtil {
 
                 file.on('end', function () {
                     result.success = true;
-                    self.fileName = fileName;
-                    resolve(result)
+                    self.fileNames.push(fileName);
                 })
             });
-
 
             busboy.on('error', function (err) {
                 result.msg = "上传失败";
                 reject(result)
+            });
+
+            busboy.on('finish', function() {
+                console.log('finished',self.fileNames);
+                resolve(result)
             });
 
             req.pipe(busboy)
