@@ -5,5 +5,11 @@
 </head>
 <body>
     <div id="app"><%= content %></div>
+    <form action="http://localhost:3001/homeDisposeUpload" method="post" enctype="multipart/form-data">
+        userName:<input type="text" name="userName" value="" />
+        email:<input type="text" name="email" value="" />
+        file:<input type="file" name="fileName" />
+        <input type="submit" value="submit"/>
+    </form>
 </body>
 </html>

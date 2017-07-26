@@ -1,12 +1,9 @@
-const path = require('path')
-const os = require('os')
-const fs = require('fs')
-const Busboy = require('busboy')
-const UtilType = require('./type')
-const UtilDatetime = require('./dateTime')
+const path = require('path');
+const fs = require('fs');
+const Busboy = require('busboy');
+const UtilDatetime = require('./dateTime');
 
 const mkdirsSync = (dirname) => {
-    // console.log(dirname)
     if (fs.existsSync(dirname)) {
         return true
     } else {
@@ -17,30 +14,21 @@ const mkdirsSync = (dirname) => {
     }
 }
 
+/**
+ * 获取文件名后缀
+ * @param fileName
+ * @returns {*}
+ */
 const getSuffixName = (fileName) => {
-    let nameList = fileName.split('.')
+    let nameList = fileName.split('.');
     return nameList[nameList.length - 1]
 }
 
 
 class uploadUtil {
-
-    constructor(){
-        this.fileNames = [];
-    }
-
-
-    /**
-     * 获取文件名
-     * @returns {Array | string}
-     */
-    getFileName(){
-        return this.fileNames.length == 1 ? this.fileNames[0] : this.fileNames;
-    }
-
     /**
      * 执行文件上传,支持多文件上传
-     * @param ctx
+     * @param ctx 上下文
      * @param {object} options
      * {
      *      filePath:"",    //可填参数： 指定文件的上传路径
@@ -50,20 +38,28 @@ class uploadUtil {
      * @returns {Promise}
      */
     do(ctx, options) {
-        const self = this;
         let req = ctx.req;
 
         return new Promise((resolve, reject) => {
+
             let result = {
                 success: false,
                 msg: "",
-                data: null
+                data: {
+                    fileNames:[]
+                }
             }
+
+            if (!options.hasOwnProperty('allowSuffix') || options.allowSuffix.length < 1){
+                result.msg = "指定允许的文件后缀";
+                return result;
+            }
+
 
             let busboy = new Busboy({headers: req.headers});
 
             busboy.on('file', function (fieldName, file, filename, encoding, mimetype) {
-                // console.log('File-file [' + fieldName + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype)
+                console.log('File-file [' + fieldName + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype)
 
                 let {filePath, fileName, allowSuffix} = options;
                 const fileSuffix = getSuffixName(filename);
@@ -99,7 +95,7 @@ class uploadUtil {
 
                 file.on('end', function () {
                     result.success = true;
-                    self.fileNames.push(fileName);
+                    result.data.fileNames.push(fileName);
                 })
             });
 
@@ -109,7 +105,6 @@ class uploadUtil {
             });
 
             busboy.on('finish', function() {
-                console.log('finished',self.fileNames);
                 resolve(result)
             });
 

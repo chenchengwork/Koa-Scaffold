@@ -31,6 +31,10 @@ https://github.com/koajs/csrf
 
 9. restClient curl
 
+10. 引入async file包
+
+https://github.com/davetemplin/async-file
+
 
 
 

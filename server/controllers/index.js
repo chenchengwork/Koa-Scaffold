@@ -12,7 +12,6 @@ const uploadUtil = require('../utils/uploadUtil');
 exports.homePage = async (ctx) => {
     const title = 'home';
     const content = 'Welcome to Koa-Scaffold';
-    // const content = await restClient.get('http://www.baidu.com');
     await ctx.render('index', {
         title,
         content
@@ -20,13 +19,43 @@ exports.homePage = async (ctx) => {
 }
 
 /**
- * 响应api数据的controller
+ * 响应get api数据的controller
  * @param ctx
  * @returns {Promise.<void>}
  */
-exports.homeAPI = async (ctx) => {
-    restClient.upload("http://localhost:3001/homeDisposeUpload");
-    restServer.success(ctx,"Welcome to Koa-Scaffold")
+exports.getHomeAPI = async (ctx) => {
+
+    //测试上传文件
+    /*const resp = await restClient.upload("http://localhost:3001/homeDisposeUpload",{
+        file1:__dirname + '/../static/img/meinv1.jpg',
+        file2:__dirname + '/../static/img/meinv2.jpg',
+        field1:"test"
+    });*/
+
+
+    //测试post
+    /*restClient.post("http://localhost:3001/postHomeAPI",{
+        a:1,
+        b:2,
+        c:3
+    });*/
+
+    //测试postJson
+    restClient.postJson("http://localhost:3001/postHomeAPI",{
+        a:1,
+        b:2,
+        c:3
+    });
+
+    restServer.success(ctx,"This is get method");
+}
+
+
+exports.postHomeAPI = async (ctx) => {
+    // console.log(ctx.request.query);     //获取get参数
+    console.log(ctx.request.body);      //获取post参数
+
+    restServer.success(ctx,"This is post method");
 }
 
 /**
@@ -36,17 +65,27 @@ exports.homeAPI = async (ctx) => {
  */
 exports.homeDisposeUpload = async (ctx) => {
 
+    // console.log("Content-Type:",ctx.request.type);
+    // console.log("header:",ctx.request.headers);
     // 上传文件事件
-    let result = await uploadUtil.do( ctx, {
+    /*let result = await uploadUtil.do( ctx, {
         filePath: path.join( __dirname, '/../static/upload/' ),
         allowSuffix:['jpg'],
-    });
+    });*/
 
-    if(result.success){
+    console.log(ctx.request.body);
+    let { name } = ctx.request.body
+    // files
+    // uploaded files is add to ctx.request.files array
+    let fileReadStream = ctx.request.files[0]
+    console.log(ctx.request.files)
+    restServer.success(ctx,null,'文件上传成功');
+
+    /*if(result.success){
         restServer.success(ctx,null,'文件上传成功');
     }else{
         restServer.error(ctx,null,'文件上传失败')
-    }
+    }*/
 }
 
 

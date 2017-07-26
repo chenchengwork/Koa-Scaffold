@@ -2,17 +2,18 @@
  * Created by chencheng on 17-7-20.
  */
 
-'use strict'
+'use strict';
 const path = require('path');
 const koaLogger = require('koa-logger');
-const views = require('koa-views')
+const views = require('koa-views');
 const koaStatic = require('koa-static');
+const bodyParser = require('koa-bodyparser');
 
 const config = require('./config');
 const logger = require('./utils/logger');
 const routers = require('./routers');
 
-const checkIsLogin =  require('./middleware/checkIsLogin');
+const checkIsLogin = require('./middleware/checkIsLogin');
 
 
 module.exports = {
@@ -20,7 +21,7 @@ module.exports = {
         /**
          * 拦截并自定义系统错误
          */
-        app.on('error', function(err,ctx){
+        app.on('error', function (err, ctx) {
             logger.error(err);
             console.log('server error', err);
         });
@@ -30,6 +31,7 @@ module.exports = {
 
         //配置session中间件
 
+
         //配置控制台日志
         config.consoleLog && app.use(koaLogger());
 
@@ -37,7 +39,37 @@ module.exports = {
         config.auth.checkIsLogin && app.use(checkIsLogin());
 
         //配置ctx.body解析
+        //用于解析Content-Type： text/plain
+        app.use(bodyParser({
+            enableTypes:['text'],
+            strict:true,
+            extendTypes:{
+                text:['text/plain']
+            },
+            onerror: function (err, ctx) {
+               ctx.throw('body parse error', 422);
+            }
+         }));
 
+        //用于解析Content-Type： application/x-www-form-urlencoded
+        /*app.use(bodyParser({
+            enableTypes: ['form'],
+            strict: true,
+            extendTypes: {
+                form: ['application/x-www-form-urlencoded']
+            },
+            onerror: function (err, ctx) {
+                ctx.throw('body parse error', 422);
+            }
+        }));*/
+
+        //默认用于解析Content-Type： application/json
+        app.use(bodyParser({
+            strict:true,
+            onerror: function (err, ctx) {
+                ctx.throw('body parse error', 422);
+            }
+        }));
 
         //配置静态资源加载
         app.use(koaStatic(
