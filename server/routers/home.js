@@ -3,7 +3,7 @@
  */
 
 const router = require('koa-router')();
-const { postFormData, postText, postJson, postUrlencoded } = require('../middleware/postMiddleware');
+const { postFormData, postText, postJson, postUrlencoded } = require('../middleware/postParse');
 
 const index = require('../controllers/index');
 
