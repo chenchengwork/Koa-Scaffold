@@ -39,37 +39,6 @@ module.exports = {
         config.auth.checkIsLogin && app.use(checkIsLogin());
 
         //配置ctx.body解析
-        //用于解析Content-Type： text/plain
-        app.use(bodyParser({
-            enableTypes:['text'],
-            strict:true,
-            extendTypes:{
-                text:['text/plain']
-            },
-            onerror: function (err, ctx) {
-               ctx.throw('body parse error', 422);
-            }
-         }));
-
-        //用于解析Content-Type： application/x-www-form-urlencoded
-        /*app.use(bodyParser({
-            enableTypes: ['form'],
-            strict: true,
-            extendTypes: {
-                form: ['application/x-www-form-urlencoded']
-            },
-            onerror: function (err, ctx) {
-                ctx.throw('body parse error', 422);
-            }
-        }));*/
-
-        //默认用于解析Content-Type： application/json
-        app.use(bodyParser({
-            strict:true,
-            onerror: function (err, ctx) {
-                ctx.throw('body parse error', 422);
-            }
-        }));
 
         //配置静态资源加载
         app.use(koaStatic(

@@ -41,22 +41,39 @@ exports.getHomeAPI = async (ctx) => {
     });*/
 
     //测试postJson
-    restClient.postJson("http://localhost:3001/postHomeAPI",{
-        a:1,
-        b:2,
-        c:3
-    });
+    // restClient.postJson("http://localhost:3001/postHomeAPI",{
+    //     a:1,
+    //     b:2,
+    //     c:3
+    // });
 
     restServer.success(ctx,"This is get method");
 }
 
 
 exports.postHomeAPI = async (ctx) => {
+
     // console.log(ctx.request.query);     //获取get参数
     console.log(ctx.request.body);      //获取post参数
 
     restServer.success(ctx,"This is post method");
 }
+
+exports.postJsonHomeAPI = async (ctx) => {
+
+    console.log(ctx.request.body);      //获取post参数
+
+    restServer.success(ctx,"This is post method");
+}
+
+exports.postTextHomeAPI = async (ctx) => {
+
+    console.log(ctx.request.body);      //获取post参数
+
+    restServer.success(ctx,"This is post method");
+}
+
+
 
 /**
  * 处理文件上传
@@ -65,21 +82,17 @@ exports.postHomeAPI = async (ctx) => {
  */
 exports.homeDisposeUpload = async (ctx) => {
 
-    // console.log("Content-Type:",ctx.request.type);
-    // console.log("header:",ctx.request.headers);
     // 上传文件事件
     /*let result = await uploadUtil.do( ctx, {
         filePath: path.join( __dirname, '/../static/upload/' ),
         allowSuffix:['jpg'],
     });*/
 
-    console.log(ctx.request.body);
-    let { name } = ctx.request.body
-    // files
-    // uploaded files is add to ctx.request.files array
-    let fileReadStream = ctx.request.files[0]
-    console.log(ctx.request.files)
+    console.log(ctx.request.body);      //获取除文件字段以外的其他字段
+    console.log(ctx.request.files);     //获取所有的上传文件
+
     restServer.success(ctx,null,'文件上传成功');
+
 
     /*if(result.success){
         restServer.success(ctx,null,'文件上传成功');
