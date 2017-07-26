@@ -9,12 +9,32 @@ const config = {
 
     //db配置
     database: {
-        TYPE:"mysql",
-        DATABASE: 'koa_demo',
-        USERNAME: 'root',
-        PASSWORD: 'abc123',
-        PORT: '3306',
-        HOST: 'localhost'
+        driver:"MySQL",     //当前的driver配置，与drivers中的key一致
+        pool:{
+            max: 5,
+            min: 0,
+            idle: 10000
+        },
+        drivers:{
+            MySQL: {
+                driver: 'mysql',
+                host:'localhost',
+                database: 'koa-demo',
+                username: 'root',
+                password: '123456',
+                port: '3306',
+            },
+
+            /*Postgres:{
+                 driver: 'postgres',
+                 host:'localhost',
+                 database: 'koa-demo',
+                 username: 'root',
+                 password: '123456',
+                 port: '3306',
+             }*/
+        }
+
     },
 
     //认证配置

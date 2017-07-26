@@ -10,6 +10,7 @@ https://github.com/alexmingoia/koa-router
 3. sequelize DB ORM
 
 https://github.com/sequelize/sequelize
+http://docs.sequelizejs.com/
 
 
 4. mini-logger 日志记录
@@ -29,7 +30,7 @@ https://github.com/koajs/csrf
 
 8. 认证用户是否登录
 
-9. restClient curl
+9. restClient curl 完成
 
 10. 引入async file包
 
