@@ -6,6 +6,7 @@ const Sequelize = require('sequelize');
 
 
 class DB{
+
     constructor(){
         const driverConf = databaseConf.drivers[databaseConf.driver];
         const poolConf = databaseConf.pool;
@@ -22,56 +23,94 @@ class DB{
             }
         });
 
-        // console.log(this.sequelize.QueryTypes);
-        /*const Project = this.sequelize.define('project',{
-            userId:Sequelize.INTEGER,
+        //定义数据类型
+        this.dataTypes = {
+            STRING:Sequelize.STRING,
+
+            TEXT:Sequelize.TEXT,
+
+            INTEGER:Sequelize.INTEGER,
+
+            BIGINT:Sequelize.BIGINT,
+
+            FLOAT:Sequelize.FLOAT,
+
+            REAL:Sequelize.FLOAT,   // PostgreSQL only.
+
+            DOUBLE:Sequelize.DOUBLE,
+
+            DECIMAL:Sequelize.DECIMAL,
+
+            DATE:Sequelize.DATE,
+
+            DATEONLY:Sequelize.DATEONLY,
+
+            BOOLEAN:Sequelize.BOOLEAN,
+
+            ENUM:Sequelize.ENUM,
+
+            ARRAY:Sequelize.ARRAY,
+
+            JSON:Sequelize.JSON, // JSON column. PostgreSQL only.
+
+            JSONB:Sequelize.JSONB, // JSON column. PostgreSQL only.
+
+            BLOB:Sequelize.BLOB, // BLOB (bytea for PostgreSQL)
+
+            UUID:Sequelize.UUID,
+
+            RANGE:Sequelize.RANGE,
+
+            GEOMETRY:Sequelize.GEOMETRY,   // Spatial column.  PostgreSQL (with PostGIS) or MySQL only.
+
+        };
+
+
+        /**
+         * 定义模型
+         * @type {Model}
+         */
+        /*const UserInfo = this.define('userInfo',{
+            userId:{
+                type: Sequelize.INTEGER,
+                primaryKey: true
+            },
             userName:Sequelize.STRING,
             userEmail:Sequelize.STRING,
             createTime:Sequelize.INTEGER,
             updateTime:Sequelize.INTEGER,
+        },{
+            //不添加时间戳属性 (updatedAt, createdAt)
+            timestamps: false,
+            // 不从数据库中删除数据，而只是增加一个 deletedAt 标识当前时间,paranoid 属性只在启用 timestamps 时适用
+            paranoid: false,
+
+            // 禁止修改表名. 默认情况下
+            // sequelize会自动使用传入的模型名（define的第一个参数）做为表名
+            // 如果你不想使用这种方式你需要进行以下设置
+            freezeTableName: true,      //true:默认模型名作为表名,false:模型名不作为表名
+
+            // 定义表名
+            // tableName:"userInfo"
         });
 
-        Project.findAll();*/
-
-        const UserInfo = this.sequelize.define('userInfo',{
-            userId:Sequelize.INTEGER,
-            userName:Sequelize.STRING,
-            userEmail:Sequelize.STRING,
-            createTime:Sequelize.INTEGER,
-            updateTime:Sequelize.INTEGER,
-        })
-
         UserInfo.findAll().then(users => {
-            console.log(users)
-        })
-
-        // this.testQuery();
+            console.log(users[0].userId)
+        })*/
     }
 
-    async testQuery(){
-        const userInfo = await this.select('userInfo',['userName']);
-        console.log(userInfo);
-    }
 
     /**
-     * select 查询
-     * @param {String} table   表名
-     * @param {Array|String} fields 字段
-     * @param {Object} where   条件
-     * @returns {Promise.<*>}
      *
-     * usage:
-     * ```js
-     * ( async ()=>{
-     *      return await db.select("tableName", [field1,...] | *);
-     * })()
-     *
-     * ```
+     * @param {String} modelName
+     * @param {Object} attributes
+     * @param Object} [options]
+     * @returns {Model}
      */
-    async select(table, fields = "*",where = {}){
-        const sequelize = this.sequelize;
-        return await this.sequelize.query("SELECT "+ fields.toString() +" FROM `"+table+"`",{ type: sequelize.QueryTypes.SELECT});
+    define(modelName,attributes,options = {}){
+        return this.sequelize.define(modelName,attributes,options);
     }
+
 
 
 
