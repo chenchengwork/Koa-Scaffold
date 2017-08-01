@@ -3,11 +3,22 @@
  */
 
 const userInfoModel = require('../models/userInfoModel');
+const DB = require('../utils/DB');
 
 exports.getUserInfo = async () => {
-    let userInfo = await userInfoModel.findAll();
-
-    return userInfo;
+    return await userInfoModel.findAndCountAll({
+        where:{
+            createdAt:{
+				$lt: new Date(),
+				$gt: new Date(new Date() - 24 * 60 * 60 * 1000)
+            }
+        },
+        offset:0,
+        limit:2,
+        raw:true
+    }).then(res => {
+        console.log(res);
+    });
 }
 
 exports.getUserInfoById = async (userId) => {
@@ -16,21 +27,29 @@ exports.getUserInfoById = async (userId) => {
 
 
 exports.createUserInfo = async () => {
-    return await userInfoModel.create({
-        userName:"test1",
-        userEmail:"test1@tianjishuju.com",
-        createTime:parseInt(Date.now()/1000),
-        updateTime:parseInt(Date.now()/1000),
-    })
+
+    return await DB.transaction(async (t) => {
+		await userInfoModel.create({
+			userName:"test1",
+			userEmail:"test1@tianjishuju.com",
+			createTime:Date.now(),
+			updateTime:Date.now(),
+		},{transaction: t});
+
+		await userInfoModel.create({
+			userName:"test2",
+			userEmail:"test2@tianjishuju.com",
+			createTime:Date.now(),
+			updateTime:Date.now(),
+		},{transaction: t})
+    });
 };
 
 
 exports.updateUserInfo = async () => {
     return await userInfoModel.update({userName:"test2"},{
         where:{
-            userId:{
-                $gt:3
-            }
+            userId:6
         }
     })
 }
@@ -40,7 +59,7 @@ exports.delUserInfo = async () => {
 
     return userInfoModel.destroy({
         where:{
-            userId:4
+            userId:6
         }
     })
 }

@@ -3,7 +3,7 @@
  */
 const restServer = require('../utils/restServer');
 const userInfoService = require('../services/userInfoService');
-
+const moment = require('moment');
 /**
  * 获取全部userInfo信息
  * @param ctx
@@ -11,6 +11,8 @@ const userInfoService = require('../services/userInfoService');
  */
 exports.getUserInfoAction = async (ctx) => {
     let userInfo = await userInfoService.getUserInfo();
+
+    // console.log(moment("2017-07-31T19:15:38.000Z").format("X"))
 
     restServer.success(ctx,userInfo);
 };

@@ -17,4 +17,5 @@ module.exports = DB.define('userInfo',{
     userEmail:DB.dataTypes.STRING,
     createTime:DB.dataTypes.INTEGER,
     updateTime:DB.dataTypes.INTEGER,
+    createdAt:DB.dataTypes.INTEGER,
 });

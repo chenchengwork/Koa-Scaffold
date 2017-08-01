@@ -2,6 +2,7 @@
  * Created by chencheng on 17-7-19.
  */
 const config = {
+    debug:true,
 
     port: 3001,             //服务监听端口
     consoleLog:true,        //控制台日志开关
