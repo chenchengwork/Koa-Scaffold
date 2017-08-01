@@ -7,12 +7,11 @@ const path = require('path');
 const koaLogger = require('koa-logger');
 const views = require('koa-views');
 const koaStatic = require('koa-static');
-const bodyParser = require('koa-bodyparser');
+// const bodyParser = require('koa-bodyparser');
 
 const config = require('./config');
 const logger = require('./utils/logger');
 const routers = require('./routers');
-const db = require('./utils/DB')
 
 const checkIsLogin = require('./middleware/checkIsLogin');
 

@@ -65,53 +65,39 @@ class DB{
 
         };
 
-
-        /**
-         * 定义模型
-         * @type {Model}
-         */
-        /*const UserInfo = this.define('userInfo',{
-            userId:{
-                type: Sequelize.INTEGER,
-                primaryKey: true
-            },
-            userName:Sequelize.STRING,
-            userEmail:Sequelize.STRING,
-            createTime:Sequelize.INTEGER,
-            updateTime:Sequelize.INTEGER,
-        },{
-            //不添加时间戳属性 (updatedAt, createdAt)
-            timestamps: false,
-            // 不从数据库中删除数据，而只是增加一个 deletedAt 标识当前时间,paranoid 属性只在启用 timestamps 时适用
-            paranoid: false,
-
-            // 禁止修改表名. 默认情况下
-            // sequelize会自动使用传入的模型名（define的第一个参数）做为表名
-            // 如果你不想使用这种方式你需要进行以下设置
-            freezeTableName: true,      //true:默认模型名作为表名,false:模型名不作为表名
-
-            // 定义表名
-            // tableName:"userInfo"
-        });
-
-        UserInfo.findAll().then(users => {
-            console.log(users[0].userId)
-        })*/
     }
 
 
     /**
-     *
+     * 定义表的ORM模型
      * @param {String} modelName
      * @param {Object} attributes
      * @param Object} [options]
      * @returns {Model}
      */
     define(modelName,attributes,options = {}){
-        return this.sequelize.define(modelName,attributes,options);
+        options = Object.assign({
+			//不添加时间戳属性 (updatedAt, createdAt)
+			timestamps: false,
+
+			// 不从数据库中删除数据，而只是增加一个 deletedAt 标识当前时间,paranoid 属性只在启用 timestamps 时适用
+			paranoid: false,
+
+			// 禁止修改表名. 默认情况下
+			// sequelize会自动使用传入的模型名（define的第一个参数）做为表名
+			// 如果你不想使用这种方式你需要进行以下设置
+			freezeTableName: true,      //true:默认模型名作为表名,false:模型名不作为表名
+
+			// 定义表名
+			// tableName:"userInfo"
+		},options);
+
+
+		/**
+         * return {findAll}
+		 */
+		return this.sequelize.define(modelName,attributes,options);
     }
-
-
 
 
 
