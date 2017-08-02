@@ -1,11 +1,12 @@
 /**
  * Created by chencheng on 17-8-2.
  */
-'use strict'
+'use strict';
 
 const path = require('path')
 const pify = require('pify')
-
+const moment = require('moment');
+const _ = require('lodash');
 /**
  * This class returns absolute path to commonly
  * used AdonisJs directories.
@@ -137,6 +138,36 @@ class Helpers {
         return path.join(this._appRoot, '/storage/tmp', toFile)
     }
 
+
+    /**
+     * Promisify callback style functions
+     *
+     * @method promisify
+     *
+     * @param  {Function} fn
+     * @param  {Object}   [options]
+     *
+     * @return {Promise}
+     *
+     * usage:
+     *  https://github.com/sindresorhus/pify
+     */
+    promisify (fn, options) {
+        return pify(fn, options)
+    }
+
+    /**
+     * 格式化时间
+     * @param {Number | String | Object} time
+     * @param {String} formatStr
+     * @returns {string}
+     *
+     */
+    dateFormat (time,formatStr = "YYYY-MM-DD HH:mm:ss"){
+        time = _.isString(time) && parseInt(time) > 1501670446000 ? parseInt(time) : time;
+
+        return moment(time).format(formatStr);
+    }
 }
 
 module.exports = new Helpers(path.join(__dirname,"../../"))

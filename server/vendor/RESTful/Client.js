@@ -1,9 +1,11 @@
 /**
  * Created by chencheng on 17-7-20.
  */
+'use strict';
+
+const fs = require('fs');
 const axios = require('axios');
 const FormData = require('form-data');
-const fs = require('fs');
 const {URLSearchParams} = require('url');
 const file = require('async-file');
 

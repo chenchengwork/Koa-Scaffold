@@ -1,6 +1,9 @@
 /**
  * Created by chencheng on 17-7-26.
  */
+'use strict';
+
+
 const config = require('../Config');
 const databaseConf = config.get("database");
 const Sequelize = require('sequelize');
