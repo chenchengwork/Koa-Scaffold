@@ -1,7 +1,7 @@
 /**
  * Created by chencheng on 17-7-31.
  */
-const restServer = require('../utils/restServer');
+const restServer = require('../../vendor/RESTful/Server');
 const userInfoService = require('../services/userInfoService');
 const moment = require('moment');
 /**

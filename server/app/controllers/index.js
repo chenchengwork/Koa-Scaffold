@@ -1,8 +1,8 @@
 const path = require('path');
 
-const restServer = require('../utils/restServer');
-const restClient = require('../utils/restClient');
-const uploadUtil = require('../utils/uploadUtil');
+const restServer = require('../../vendor/RESTful/Server');
+const restClient = require('../../vendor/RESTful/Client');
+const uploadUtil = require('../../vendor/uploadUtil');
 
 /**
  * 响应view模板的controller

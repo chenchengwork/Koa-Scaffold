@@ -1,8 +1,8 @@
 /**
  * Created by chencheng on 17-7-26.
  */
-const config = require('../config');
-const databaseConf = config.database;
+const config = require('../Config');
+const databaseConf = config.get("database");
 const Sequelize = require('sequelize');
 
 

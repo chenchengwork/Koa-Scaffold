@@ -7,14 +7,13 @@ const path = require('path');
 const koaLogger = require('koa-logger');
 const views = require('koa-views');
 const koaStatic = require('koa-static');
-// const bodyParser = require('koa-bodyparser');
 
-const config = require('./config');
-const logger = require('./utils/logger');
-const routers = require('./routers');
+const logger = require('../vendor/Logger');
+const helpers = require('../vendor/Helpers');
+// const config = require('../vendor/Config');
+const routers = require('./routers/index');
 
-const checkIsLogin = require('./middleware/checkIsLogin');
-
+const checkIsLogin = require('../middleware/checkIsLogin');
 
 module.exports = {
     init(app){
@@ -23,26 +22,28 @@ module.exports = {
          */
         app.on('error', function (err, ctx) {
             logger.error(err);
-            console.log('server error', err);
+            console.error('server error', err);
         });
 
-        //session存储配置
 
+        // logger.error(new Error('1212'))
+
+        //session存储配置
 
         //配置session中间件
 
 
         //配置控制台日志
-        config.consoleLog && app.use(koaLogger());
+        app.use(koaLogger());
 
         //验证是否登录
-        config.auth.checkIsLogin && app.use(checkIsLogin());
+        //config.auth.checkIsLogin && app.use(checkIsLogin());
 
         //配置ctx.body解析
 
         //配置静态资源加载
         app.use(koaStatic(
-            path.join(__dirname, './static')
+            helpers.publicPath()
         ));
 
         //配置服务端模板渲染引擎
@@ -53,6 +54,5 @@ module.exports = {
 
         //初始化路由中间件
         app.use(routers.routes()).use(routers.allowedMethods());
-
     }
 };

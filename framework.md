@@ -39,6 +39,10 @@ https://github.com/davetemplin/async-file
 11. 请求参数过滤器
 
 
+12. 基于redis的queue
+    https://github.com/smrchy/rsmq
+
+
 
 
 

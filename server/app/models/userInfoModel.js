@@ -1,7 +1,7 @@
 /**
  * Created by chencheng on 17-7-31.
  */
-const DB = require('../utils/DB');
+const DB = require('../../vendor/DB');
 
 /**
  *

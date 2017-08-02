@@ -3,7 +3,7 @@
  */
 
 const userInfoModel = require('../models/userInfoModel');
-const DB = require('../utils/DB');
+const DB = require('../../vendor/DB');
 
 exports.getUserInfo = async () => {
     return await userInfoModel.findAndCountAll({

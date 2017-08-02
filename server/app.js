@@ -1,16 +1,16 @@
-'use strict'
+'use strict';
 const Koa = require('koa');
 
-const config = require('./config');
-const bootstrap = require('./bootstrap');
+const config = require('./vendor/Config');
+const bootstrap = require('./app/bootstrap');
 
 const app = new Koa();
-
+const appConf = config.get('app');
 /**
  * 初始化启动任务
  */
 bootstrap.init(app);
 
-app.listen(config.port);
+app.listen(appConf.port);
 
-console.log(`the server is start at port ${config.port}`);
+console.log(`the server is start at port ${appConf.port}`);
