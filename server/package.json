@@ -11,6 +11,7 @@
   "dependencies": {
     "async-file": "^2.0.2",
     "axios": "^0.16.2",
+    "append-field":"^1.0.0",
     "busboy": "^0.2.14",
     "co-body": "^5.1.1",
     "copy-to": "^2.0.1",

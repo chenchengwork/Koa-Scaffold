@@ -55,21 +55,21 @@ exports.getHomeAPI = async (ctx) => {
 exports.postHomeAPI = async (ctx) => {
     console.log(ctx.request.body);      //获取post参数
 
-    restServer.success(ctx,"This is post method");
+    restServer.success(ctx,ctx.request.body,"This is post method");
 }
 
 exports.postJsonHomeAPI = async (ctx) => {
 
     console.log(ctx.request.body);      //获取post参数
 
-    restServer.success(ctx,"This is post method");
+    restServer.success(ctx,ctx.request.body,"This is postJson method");
 }
 
 exports.postTextHomeAPI = async (ctx) => {
 
     console.log(ctx.request.body);      //获取post参数
 
-    restServer.success(ctx,"This is post method");
+    restServer.success(ctx,ctx.request.body,"This is postText method");
 }
 
 
@@ -79,25 +79,12 @@ exports.postTextHomeAPI = async (ctx) => {
  * @param ctx
  * @returns {Promise.<void>}
  */
-exports.homeDisposeUpload = async (ctx) => {
-
-    // 上传文件事件
-    /*let result = await uploadUtil.do( ctx, {
-        filePath: path.join( __dirname, '/../static/upload/' ),
-        allowSuffix:['jpg'],
-    });*/
+exports.postUploadAPI = async (ctx) => {
 
     console.log(ctx.request.body);      //获取除文件字段以外的其他字段
     console.log(ctx.request.files);     //获取所有的上传文件
 
     restServer.success(ctx,null,'文件上传成功');
-
-
-    /*if(result.success){
-        restServer.success(ctx,null,'文件上传成功');
-    }else{
-        restServer.error(ctx,null,'文件上传失败')
-    }*/
 }
 
 
