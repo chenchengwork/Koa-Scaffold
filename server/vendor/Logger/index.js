@@ -4,19 +4,8 @@
 'use strict';
 
 const path = require('path');
-const process = require('process');
 const moment = require('moment');
 const helpers = require('../Helpers');
-/*const logger = Logger({
-    dir: path.join(__dirname, 'logs'),
-    categories: [ 'info', 'warning', 'debug', 'error', 'critical' ],
-    format: '[{category}.]YYYY-MM-DD[.log]'
-})
-
-
-const formatLog = (type,msg) =>{
-    return type + '|' + process.pid + '|' + moment().format("YYYY-MM-DD h:mm:ss") +'|'+ (msg instanceof Error ? msg.stack : msg);
-}*/
 
 const winston = require('winston');
 

@@ -53,8 +53,6 @@ exports.getHomeAPI = async (ctx) => {
 
 
 exports.postHomeAPI = async (ctx) => {
-
-    // console.log(ctx.request.query);     //获取get参数
     console.log(ctx.request.body);      //获取post参数
 
     restServer.success(ctx,"This is post method");

@@ -15,7 +15,10 @@ const config = require('../vendor/Config');
 const routers = require('./routers/index');
 
 const appConf = config.get('app.timezone');
+
 const checkIsLogin = require('../middleware/checkIsLogin');
+// const postParse = require('../middleware/postParse');
+const postParse = require('../middleware/postParseMiddleware');
 
 module.exports = {
     init(app){
@@ -45,6 +48,8 @@ module.exports = {
         //config.auth.checkIsLogin && app.use(checkIsLogin());
 
         //配置ctx.body解析
+        app.use(postParse());
+
 
         //配置静态资源加载
         app.use(koaStatic(
