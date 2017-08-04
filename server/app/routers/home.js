@@ -5,7 +5,7 @@
 const router = require('koa-router')();
 const index = require('../controllers/index');
 
-module.exports = router.get('homePage', index.homePage)
+module.exports = router.get('/', index.homePage)
     .get('getHomeAPI', index.getHomeAPI)
     .post('postHomeAPI', index.postHomeAPI)
     .post('postJsonHomeAPI', index.postJsonHomeAPI)

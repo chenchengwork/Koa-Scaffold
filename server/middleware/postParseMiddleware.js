@@ -93,16 +93,11 @@ function extractFileAndField(req, dest, fnDestFilename, opts = {}) {
 }
 
 
-
-
 /**
  * @param [Object] opts
- *   - {String} jsonLimit default '1mb'
- *   - {String} formLimit default '1mb'
- *   - {String} textLimit default '1mb'
- *   - {string} encoding default 'utf-8'
- *   - {Object} extendTypes
- *   - {Function} [onerror]
+ *   - {String} upload_tmp_dir default '1mb'
+ *   - {String} post_max_size default '1mb'
+ *   - {String} upload_max_filesize default '1mb'
  */
 module.exports = function (opts = defaultOpts) {
     // default json types

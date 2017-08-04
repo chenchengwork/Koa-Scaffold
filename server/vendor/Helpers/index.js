@@ -139,6 +139,25 @@ class Helpers {
     }
 
 
+	/**
+	 * Returns path to the cache directory or a
+	 * specific file to the cache directory.
+	 *
+	 * ## Note
+	 * This method does not check the existence of
+	 * file.
+	 *
+	 * @method cachePath
+	 *
+	 * @param  {String}   [toFile = '']
+	 *
+	 * @return {String}
+	 */
+	cachePath (toFile = '') {
+		return path.join(this._appRoot, '/storage/cache', toFile)
+	}
+
+
     /**
      * Promisify callback style functions
      *

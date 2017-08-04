@@ -1,3 +1,7 @@
+npm uninstall koa-bodyparser --save
+
+
+
 #### HTTP层
 ```
 1. 路由
