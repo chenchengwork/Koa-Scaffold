@@ -4,7 +4,7 @@ const restServer = require('../../vendor/RESTful/Server');
 const restClient = require('../../vendor/RESTful/Client');
 const uploadUtil = require('../../vendor/uploadUtil');
 const cache = require('../../vendor/Cache');
-
+const assert = require('assert');
 /**
  * 响应view模板的controller
  * @param ctx
@@ -14,13 +14,13 @@ exports.homePage = async (ctx) => {
     const title = 'home';
     const content = 'Welcome to Koa-Scaffold';
 
+    // assert(ctx.req,"sdsd sd")
 
-    const result = await cache.set("name",{a:1},30000);
-    const result1 = await cache.get("name");
+
+    // const result = await cache.set("name",{a:1},30000);
+    // const result1 = await cache.get("name");
     // const result1 = cache.get("name");
-
-
-    console.log(result,result1);
+    // console.log(result,result1);
 
     await ctx.render('index', {
         title,

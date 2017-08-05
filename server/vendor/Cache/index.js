@@ -36,6 +36,10 @@ class Cache{
 		return this.cache.get(key);
 	}
 
+	clear() {
+
+	}
+
 
 }
 
